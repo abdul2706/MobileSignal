@@ -13,6 +13,7 @@ import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -65,19 +66,21 @@ public class MainActivity extends AppCompatActivity {
         PhoneStateListener phoneListener = new PhoneStateListener() {
             @Override
             public void onSignalStrengthsChanged(SignalStrength signalStrength) {
-                if (manager != null) {
-                    textViewCDMADBM.setText(String.format(Locale.getDefault(), "%d", signalStrength.getCdmaDbm()));
-                    textViewCDMAECIO.setText(String.format(Locale.getDefault(), "%d", signalStrength.getCdmaEcio()));
-                    textViewEVDODBM.setText(String.format(Locale.getDefault(), "%d", signalStrength.getEvdoDbm()));
-                    textViewEVDOECIO.setText(String.format(Locale.getDefault(), "%d", signalStrength.getEvdoEcio()));
-                    textViewEVDOSNR.setText(String.format(Locale.getDefault(), "%d", signalStrength.getEvdoSnr()));
-                    textViewGSMBITERRORRATE.setText(String.format(Locale.getDefault(), "%d", signalStrength.getGsmBitErrorRate()));
-                    textViewGSMSIGNALSTRENGTH.setText(String.format(Locale.getDefault(), "%d", signalStrength.getGsmSignalStrength()));
-                    textViewGETLEVEL.setText(String.format(Locale.getDefault(), "%d", signalStrength.getLevel()));
-                }
+                textViewCDMADBM.setText(String.format(Locale.getDefault(), "%d", signalStrength.getCdmaDbm()));
+                textViewCDMAECIO.setText(String.format(Locale.getDefault(), "%d", signalStrength.getCdmaEcio()));
+                textViewEVDODBM.setText(String.format(Locale.getDefault(), "%d", signalStrength.getEvdoDbm()));
+                textViewEVDOECIO.setText(String.format(Locale.getDefault(), "%d", signalStrength.getEvdoEcio()));
+                textViewEVDOSNR.setText(String.format(Locale.getDefault(), "%d", signalStrength.getEvdoSnr()));
+                textViewGSMBITERRORRATE.setText(String.format(Locale.getDefault(), "%d", signalStrength.getGsmBitErrorRate()));
+                textViewGSMSIGNALSTRENGTH.setText(String.format(Locale.getDefault(), "%d", signalStrength.getGsmSignalStrength()));
+                textViewGETLEVEL.setText(String.format(Locale.getDefault(), "%d", signalStrength.getLevel()));
             }
         };
-        manager.listen(phoneListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
+        if(manager != null) {
+            manager.listen(phoneListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
+        } else {
+            Toast.makeText(this, "TelephonyManager not Fount", Toast.LENGTH_LONG).show();
+        }
     }
 
 }
