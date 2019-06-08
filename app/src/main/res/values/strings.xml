@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MobileSignal</string>
+    <string name="record_signal">Record Signal</string>
 </resources>
